@@ -1,1 +1,1 @@
-Playing with ES6
+Playing with ES6 via Google Traceur Compiler
