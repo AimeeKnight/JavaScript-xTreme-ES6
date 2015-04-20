@@ -1,12 +1,11 @@
-var http = require('http');
-var connect = require('connect');
-var directory = 'public';
-var port = process.env.PORT;
+var static = require('node-static');
+var port = 3000;
+var http = require('http')
 
-var app = connect()
-  .use(connect.logger(':remote-addr -> :method :url [:status]'))
-  .use(connect.static(directory));
+var file = new static.Server('./public');
 
-http.createServer(app).listen(port, function(){
-  console.log('Node server listening. Port: ' + port + ', Directory: ' + directory);
-});
+http.createServer(function(req, res) {
+  req.addListener('end', function() {
+    file.serve(req, res);
+  }).resume();
+}).listen(port);

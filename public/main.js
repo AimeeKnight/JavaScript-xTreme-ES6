@@ -7,37 +7,58 @@ function init(){
   $('#generator').click(generator);
 }
 
+// generators
 function generator(){
-  var [x, y] = $('#numbers').val().split(',').map(n=> n* 1);
-  // array comprehension
-  //var output = [for(j of gen(x)) j*j];
-  var output = [for(j of gen(x)) for(k of gen(y)) {x:j, y:k}].map(o=> `<div>x:${o.x} y:${o.y}</div>`);
+  var [x, y] = $('#numbers')
+    .val()
+    .split(',')
+    .map(n=> n * 1);
+
+  // var output = [for(j of gen(x)) j*j];
+  // array comprehension with two arrays
+  var output = [for(j of gen(x)) for(k of gen(y)) {x:j, y:k}]
+    .map(o=> `<div>x:${o.x} y:${o.y}</div>`);
+
   console.log(output);
 
   for(j of gen(x)){
     console.log(j);
-  } 
+  }
 }
 
+// generators (iterator)
+// creates an object to call next() on
 function* gen(x){
   for (var i = 0; i < x; i++){
+    // generator will be done when finished with all yiel statements
     yield i;
   }
 }
 
 function power(){
-  var numbers = $('#numbers').val().split(',').map(n=> n* 1);
+  var numbers = $('#numbers')
+    .val()
+    .split(',')
+    // arrow functions
+    .map(n=> n* 1);
+
+  // spread operator
   var output = realPower(...numbers);
   console.log(output);
 }
 
+// default parameters
 function realPower(base, exponent=2){
   return Math.pow(base, exponent)
 }
 
-function dest(){
-  var numbers = $('#numbers').val().split(',').map(n=> n* 1);
-  // array destructuring
+function destructuring(){
+  var numbers = $('#numbers')
+    .val()
+    .split(',')
+    .map(n=> n * 1);
+
+  // array destructuring & spread operator
   var [a, v] = areaVol(...numbers);
   console.log(a);
   console.log(v);
@@ -50,7 +71,14 @@ function areaVol(l, w, h){
 }
 
 function squareOdds(){
-  var output = $('#numbers').val().split(',').map((n)=>n * 1).filter(n=>n % 2 === 1).map(n=> n * n).map(n=> `<div>${n}</div>`);
+  var output = $('#numbers')
+    .val().split(',')
+    .map(n=>n * 1)
+    .filter(n=>n % 2 === 1)
+    .map(n=> n * n)
+    // Template strings
+    .map(n=> `<div>${n}</div>`);
+
   $('#odds').append(output);
   console.log(output);
 }
