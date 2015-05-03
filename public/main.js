@@ -82,3 +82,58 @@ function squareOdds(){
   $('#odds').append(output);
   console.log(output);
 }
+
+var foo = 'baz';
+let foo = 'bar';
+console.log(foo); // bar
+
+let foo = 'bar';
+var foo = 'baz';
+console.log(foo); // baz
+
+// will behave as var inside the for loop
+{ let i;
+    for (i=1; i<=5; i++) {
+        setTimeout(function(){
+            console.log("i:",i); // will always be 6
+        },i*1000);
+    }
+}
+
+class AnimalES6 {
+  constructor(name) {
+    this.name = name;
+    this._age = 0;
+  }
+
+  /*
+  get age() {
+    return this._age;
+  }
+  */
+
+  set age(value) {
+    if (value < 0) {
+        console.log("We do not support undead animals");
+    }
+
+    this._age = value;
+  }
+
+  doSomething() {
+    console.log("I'm a " + this.name);
+  }
+}
+
+var lionES6 = new AnimalES6("Lion");
+lionES6.doSomething();
+lionES6.age = 5;
+console.log('ES6 Lion: ', lionES6.age); // will be undefined without defining age getter
+
+function AnimalES5() {
+}
+
+var lionES5 = new AnimalES5();
+lionES5.age = 5;
+console.log('ES5 Lion: ', lionES5.age); // 5
+
